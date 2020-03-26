@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.index');
+Route::get('/view', function () {
+    //return view('admin.index');
+    return view('store.view');
 });
+
+Route::get('/', 'StoreController@index');
+Route::get('/view/{id}', 'StoreController@getView');
 
 Route::resource('category','CategoryController');
 
