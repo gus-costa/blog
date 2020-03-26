@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::resource('category','CategoryController');
+
+Route::resource('post','PostController');
