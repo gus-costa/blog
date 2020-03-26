@@ -9,6 +9,11 @@ use App\Category;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
         $categories = Category::all();
 
@@ -26,7 +31,8 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('category/create')
+            return redirect()
+                ->route('category.create')
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -37,7 +43,7 @@ class CategoryController extends Controller
 
         Session::flash('category_create','New category is created');    
 
-        return redirect('category/create');
+        return redirect()->route('category.create');
     }
 
     public function edit($id){
@@ -54,6 +60,7 @@ class CategoryController extends Controller
 
         if ($validator->fails()) {
             return redirect('category/' . $category->id . '/edit')
+                ->route('category.edit', ['category' => $category->id])
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -63,13 +70,13 @@ class CategoryController extends Controller
 
         Session::flash('category_update','Category was updated');    
 
-        return redirect('category');
+        return redirect()->route('category.index');
     }
 
     public function destroy($id){
         $category = Category::find($id);
         $category->delete();
         Session::flash('category_delete','Category was deleted');    
-        return redirect('category');
+        return redirect()->route('category.index');
     }
 }

@@ -5,8 +5,8 @@
 
     <nav class="navbar navbar-expand navbar-light bg-white">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="{{ url('category') }}">View All categories</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('category/create') }}">Create New Category</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('category.index') }}">View All categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('category.create') }}">Create New Category</a></li>
         </ul>
     </nav>
 
@@ -44,11 +44,10 @@
                         @foreach ($categories as $category)
                         <tr>
                             <td>{{ $category->name }}</td>
-                            <td><a href="{{ url('category/' . $category->id . '/edit') }}">Edit</a></td>
+                            <td><a href="{{ route('category.edit', ['category' => $category->id]) }}">Edit</a></td>
                             <td>
-                                {!! Form::open(['url' => 'category/' . $category->id, 'method' => 'DELETE']) !!}
+                                {!! Form::open(['route' => ['category.destroy', $category->id], 'method' => 'DELETE']) !!}
                                 {!! csrf_field() !!}
-                                {!! method_field('DELETE') !!}
                                 <button class="btn btn-danger" type="submit">Delete</button>
                                 {!! Form::close() !!}
                             </td>

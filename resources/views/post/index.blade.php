@@ -5,8 +5,8 @@
 
     <nav class="navbar navbar-expand navbar-light bg-white">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="{{ url('post') }}">View All Posts</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('post/create') }}">Create New Post</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('post.index') }}">View All Posts</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('post.create') }}">Create New Post</a></li>
         </ul>
     </nav>
 
@@ -44,11 +44,10 @@
                         @foreach ($posts as $post)
                         <tr>
                             <td>{{ $post->title }}</td>
-                            <td><a href="{{ url('post/' . $post->id . '/edit') }}">Edit</a></td>
+                            <td><a href="{{ route('post.edit', ['post' => $post->id]) }}">Edit</a></td>
                             <td>
-                                {!! Form::open(['url' => 'post/' . $post->id, 'method' => 'DELETE']) !!}
+                                {!! Form::open(['route' => ['post.destroy', $post->id], 'method' => 'DELETE']) !!}
                                 {!! csrf_field() !!}
-                                {!! method_field('DELETE') !!}
                                 <button class="btn btn-danger" type="submit">Delete</button>
                                 {!! Form::close() !!}
                             </td>

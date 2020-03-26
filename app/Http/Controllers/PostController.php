@@ -11,6 +11,11 @@ use App\Post;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     private function getCategoriesForSelect(){
         $categories = [];
 
@@ -48,7 +53,8 @@ class PostController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('post/create')
+            return redirect()
+                ->route('post.create')
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -69,7 +75,7 @@ class PostController extends Controller
 
         Session::flash('post_create','New post was created');    
 
-        return redirect('post/create');
+        return redirect()->route('post.create');
     }
 
     public function edit($id){
@@ -92,7 +98,8 @@ class PostController extends Controller
         $post = Post::find($id);
 
         if ($validator->fails()) {
-            return redirect('post/'.$post->id.'/edit')
+            return redirect()
+                ->route('post.edit', ['post' => $post->id])
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -120,7 +127,7 @@ class PostController extends Controller
 
         Session::flash('post_update','Post was updated');    
 
-        return redirect('post');
+        return redirect()->route('post.index');
     }
 
     public function destroy($id){
@@ -128,6 +135,6 @@ class PostController extends Controller
         $post->delete();
         $this->deleteImageFile($post->image);
         Session::flash('post_delete','Post was deleted');    
-        return redirect('post');
+        return redirect()->route('post.index');
     }
 }

@@ -13,14 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/view', function () {
-    //return view('admin.index');
-    return view('store.view');
-});
-
 Route::get('/', 'StoreController@index');
-Route::get('/view/{id}', 'StoreController@getView');
+Route::get('/post/{id}', 'StoreController@getView');
 
-Route::resource('category','CategoryController');
+Route::group(['prefix' => 'admin'], function(){
+    Route::middleware(['auth'])->get('/', function() {
+        return view('admin.index');
+    });
 
-Route::resource('post','PostController');
+    Route::resource('category','CategoryController');
+    
+    Route::resource('post','PostController');
+
+    Auth::routes(['register' => false, 'reset' => false]);
+});

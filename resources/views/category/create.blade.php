@@ -5,8 +5,8 @@
 
     <nav class="navbar navbar-expand navbar-light bg-white">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="{{ url('category') }}">View All categories</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('category/create') }}">Create New Category</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('category.index') }}">View All categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('category.create') }}">Create New Category</a></li>
         </ul>
     </nav>
 
@@ -23,7 +23,7 @@
         <!-- Form errors -->
         @include('common.errors')
         
-        {!! Form::open(['url' => 'category']) !!}
+        {!! Form::open(['route' => 'category.store']) !!}
         {!! Form::label('name', 'Name:') !!}
         {!! Form::text('name', null, ['class'=>'form-control']) !!}
         {!! Form::submit('Create Category', ['class' => 'secondary-cart-btn']) !!}
