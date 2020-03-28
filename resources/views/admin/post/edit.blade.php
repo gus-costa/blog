@@ -1,7 +1,7 @@
-@extends('admin.main')
+@extends('layouts.admin')
 
 @section('content')
-    <h1 class="h3 mb-4 text-gray-800">Create New Category</h1>
+    <h1 class="h3 mb-4 text-gray-800">Edit Post</h1>
 
     <nav class="navbar navbar-expand navbar-light bg-white">
         <ul class="navbar-nav">
@@ -10,20 +10,11 @@
         </ul>
     </nav>
 
-    @if (Session::has('post_create'))
-        <div class="alert alert-success">
-            <em>{!! session('post_create') !!}</em>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
     <div class="panel-body">
         <!-- Form errors -->
         @include('common.errors')
         
-        {!! Form::open(['route' => 'post.store', 'files' => 'true']) !!}
+        {!! Form::model($post, ['route' => ['post.update', $post->id], 'method' => 'put', 'files' => 'true']) !!}
 
         {!! Form::label('category_id', 'Category:') !!}
         {!! Form::select('category_id', $categories, ['class'=>'form-control']) !!}
@@ -43,7 +34,8 @@
         {!! Form::label('description', 'Description:') !!}
         {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
         
-        {!! Form::submit('Create Post', ['class' => 'secondary-cart-btn']) !!}
+        {!! Form::submit('Save', ['class' => 'secondary-cart-btn']) !!}
         {!! Form::close() !!}
+
     </div>
 @endsection

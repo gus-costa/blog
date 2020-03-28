@@ -33,12 +33,12 @@ class PostController extends Controller
     public function index(){
         $posts = Post::all();
 
-        return view('post.index')
+        return view('admin.post.index')
             ->with('posts', $posts);
     }
 
     public function create(){
-        return view('post.create')
+        return view('admin.post.create')
             ->with('categories', $this->getCategoriesForSelect());
     }
 
@@ -80,7 +80,7 @@ class PostController extends Controller
 
     public function edit($id){
         $post = Post::findOrFail($id);
-        return view('post.edit')
+        return view('admin.post.edit')
             ->with('post', $post)
             ->with('categories', $this->getCategoriesForSelect());
     }

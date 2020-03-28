@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'StoreController@index');
+Route::get('/', 'PagesController@getIndex')->name('home');
+
+Route::get('about', 'PagesController@getAbout')->name('about');
+
+Route::get('contact', 'PagesController@getContact')->name('contact');
+Route::post('contact', 'PagesController@postContact')->name('submitContact');
+
 Route::get('/post/{id}', 'StoreController@getView');
 
 Route::group(['prefix' => 'admin'], function(){
