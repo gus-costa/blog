@@ -23,9 +23,8 @@ Route::post('contact', 'PagesController@postContact')->name('submitContact');
 Route::get('/post/{id}', 'StoreController@getView');
 
 Route::group(['prefix' => 'admin'], function(){
-    Route::middleware(['auth'])->get('/', function() {
-        return view('admin.index');
-    });
+    Route::get('/', 'AdminController@indexPage')->name('admin.index');
+    Route::get('/info', 'AdminController@infoPage')->name('admin.info');
 
     Route::resource('category','CategoryController');
     

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 use Session;
 use File;
@@ -11,6 +12,8 @@ use App\Post;
 
 class PostController extends Controller
 {
+    private $uploadDir = 'posts';
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -27,7 +30,7 @@ class PostController extends Controller
     }
 
     private function deleteImageFile($filename){
-        File::delete('img/posts/'.$filename);
+        Storage::delete($filename);
     }
 
     public function index(){
@@ -59,16 +62,13 @@ class PostController extends Controller
                 ->withErrors($validator);
         }
 
-        $image = $request->file('image');
-        $upload = 'img/posts/';
-        $filename = time().$image->getClientOriginalName();
-        $path = move_uploaded_file($image->getPathName(), $upload.$filename);
+        $path = Storage::putFile($this->uploadDir, $request->file('image'));
 
         $post = new Post;
         $post->category_id = $request->category_id;
         $post->title = $request->title;
         $post->author = $request->author;
-        $post->image = $filename;
+        $post->image = $path;
         $post->short_desc = $request->short_desc;
         $post->description = $request->description;
         $post->save();
@@ -106,13 +106,10 @@ class PostController extends Controller
 
         $oldfile = null;
 
-        if (!empty($request->file('image'))){
-            $image = $request->file('image');
-            $upload = 'img/posts/';
-            $filename = time().$image->getClientOriginalName();
-            $path = move_uploaded_file($image->getPathName(), $upload.$filename);
+        if (!empty($request->file('image'))) {
+            $path = Storage::putFile($this->uploadDir, $request->file('image'));
             $oldfile = $post->image;
-            $post->image = $filename;
+            $post->image = $path;
         }
 
         $post->category_id = $request->category_id;
