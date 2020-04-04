@@ -6,14 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Session;
-use File;
+use Config;
 use App\Category;
 use App\Post;
 
 class PostController extends Controller
 {
-    private $uploadDir = 'posts';
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -62,7 +60,7 @@ class PostController extends Controller
                 ->withErrors($validator);
         }
 
-        $path = Storage::putFile($this->uploadDir, $request->file('image'));
+        $path = Storage::putFile(Config::get('app.images_dir'), $request->file('image'));
 
         $post = new Post;
         $post->category_id = $request->category_id;
@@ -107,7 +105,7 @@ class PostController extends Controller
         $oldfile = null;
 
         if (!empty($request->file('image'))) {
-            $path = Storage::putFile($this->uploadDir, $request->file('image'));
+            $path = Storage::putFile(Config::get('app.images_dir'), $request->file('image'));
             $oldfile = $post->image;
             $post->image = $path;
         }

@@ -20,7 +20,7 @@ Route::get('about', 'PagesController@getAbout')->name('about');
 Route::get('contact', 'PagesController@getContact')->name('contact');
 Route::post('contact', 'PagesController@postContact')->name('submitContact');
 
-Route::get('/post/{id}', 'StoreController@getView');
+Route::get('/post/{id}', 'StoreController@getView')->name('post.view');
 
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/', 'AdminController@indexPage')->name('admin.index');

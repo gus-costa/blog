@@ -64,7 +64,7 @@ return [
             'url' => env('AWS_URL'),
         ],
 
-        'cloudinary' => [
+        'cloudinary' => [ // TODO CREATE ROOT CONFIG
             'driver' => 'cloudinary',
             'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
             'api_key' => env('CLOUDINARY_API_KEY'),

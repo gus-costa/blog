@@ -1,10 +1,19 @@
 @extends('layouts.main')
 
 @section('heading')
-<div class="site-heading">
-    <h1>Gus Costa</h1>
-    <span class="subheading">Laravel and Angular</span>
-</div>
+<header class="masthead" style="background-image: url('img/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Gus Costa</h1>
+                    <span class="subheading">Laravel and Angular</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 @endsection
 
 @section('content')
@@ -13,7 +22,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
     @foreach ($posts as $post)
     <div class="post-preview">
-        <a href="{{ url('view/'.$post->id) }}">
+        <a href="{{ route('post.view', ['id' => $post->id]) }}">
         <h2 class="post-title">
             {{$post->title}}
         </h2>

@@ -55,6 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
+    'images_dir' => env('IMAGES_DIR', 'blog_dev/posts/'),
 
     /*
     |--------------------------------------------------------------------------
