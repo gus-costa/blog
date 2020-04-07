@@ -56,6 +56,7 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
     'images_dir' => env('IMAGES_DIR', 'blog_dev/posts/'),
+    'contact_to' => env('CONTACT_TO', null),
 
     /*
     |--------------------------------------------------------------------------

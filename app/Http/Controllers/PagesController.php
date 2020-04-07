@@ -37,7 +37,7 @@ class PagesController extends Controller {
 
         Mail::send('emails.contact', $data, function($message) use ($data){
             $message->from($data['email']);
-            $message->to('asdf@asdf.com');
+            $message->to(config('app.contact_to'));
             $message->subject('New contact');
         });
 
