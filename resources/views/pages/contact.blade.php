@@ -1,10 +1,19 @@
 @extends('layouts.main')
 
 @section('heading')
-<div class="page-heading">
-    <h1>Contact Me</h1>
-    <span class="subheading">Have questions? I have answers.</span>
-</div>
+<header class="masthead" style="background-image: url('img/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Contact Me</h1>
+                    <span class="subheading">Have questions? I have answers.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 @endsection
 
 @section('content')
@@ -17,33 +26,33 @@
         @endif
         @include('common.errors')
         <form method="POST" action="{{ route('submitContact') }}" id="contactForm" novalidate>
-          @csrf
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Name</label>
-              <input type="text" class="form-control" placeholder="Name" name="name" id="name" required data-validation-required-message="Please enter your name." value="{{ old('name') }}">
-              <p class="help-block text-danger"></p>
+            @csrf
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Name" name="name" id="name" required data-validation-required-message="Please enter your name." value="{{ old('name') }}">
+                    <p class="help-block text-danger"></p>
+                </div>
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Email Address</label>
-              <input type="email" class="form-control" placeholder="Email Address" name="email" id="email" required data-validation-required-message="Please enter your email address." value="{{ old('email') }}">
-              <p class="help-block text-danger"></p>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="Email Address" name="email" id="email" required data-validation-required-message="Please enter your email address." value="{{ old('email') }}">
+                    <p class="help-block text-danger"></p>
+                </div>
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Message</label>
-              <textarea rows="5" class="form-control" placeholder="Message" name="message" id="message" required data-validation-required-message="Please enter a message.">{{ old('message') }}</textarea>
-              <p class="help-block text-danger"></p>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Message</label>
+                    <textarea rows="5" class="form-control" placeholder="Message" name="message" id="message" required data-validation-required-message="Please enter a message.">{{ old('message') }}</textarea>
+                    <p class="help-block text-danger"></p>
+                </div>
             </div>
-          </div>
-          <br>
-          <div id="success"></div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">Send</button>
-          </div>
+            <br>
+            <div id="success"></div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
         </form>
       </div>
     </div>
