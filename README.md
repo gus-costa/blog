@@ -28,3 +28,15 @@ If you intend to store images on Cloudinary, set these to:
 - **CLOUDINARY_API_KEY:** Your API key
 - **CLOUDINARY_API_SECRET:** Your API secret
 - **CLOUDINARY_OVERWRITE:** Ovewrite or not files when writing
+
+## Inserting the first user
+
+After deploying the application, set a admin user like this:
+
+```
+php artisan tinker
+```
+then
+```
+DB::table('users')->insert(['name'=>'user_name','email'=>'user_email','password'=>Hash::make('password')])
+```
