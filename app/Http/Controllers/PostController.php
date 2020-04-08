@@ -46,11 +46,11 @@ class PostController extends Controller
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|integer',
-            'title' => 'required|max:20|min:3',
+            'title' => 'required|max:60|min:10',
             'author' => 'required|max:20|min:3',
             'image' => 'required|mimes:jpg,jpeg,png,gif',
-            'short_desc' => 'required|max:50|min:10',
-            'description' => 'required|max:1000|min:50'
+            'short_desc' => 'required|max:200|min:30',
+            'description' => 'required|max:4000000000|min:100'
         ]);
 
         if ($validator->fails()) {
@@ -86,11 +86,11 @@ class PostController extends Controller
     public function update(Request $request, $id){
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|integer',
-            'title' => 'required|max:20|min:3',
+            'title' => 'required|max:60|min:10',
             'author' => 'required|max:20|min:3',
             'image' => 'mimes:jpg,jpeg,png,gif',
-            'short_desc' => 'required|max:50|min:10',
-            'description' => 'required|max:1000|min:50'
+            'short_desc' => 'required|max:200|min:30',
+            'description' => 'required|max:4000000000|min:100'
         ]);
 
         $post = Post::find($id);
