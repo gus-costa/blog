@@ -15,7 +15,13 @@ class Post extends Model
         'description'
     ];
 
+    protected $appends = ['html_content'];
+
     public function category(){
         return $this->belongsTo('category');
+    }
+
+    public function getHtmlContentAttribute() {
+        return \Illuminate\Mail\Markdown::parse($this->description);
     }
 }
