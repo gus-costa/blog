@@ -36,7 +36,9 @@ After deploying the application, set a admin user like this:
 ```
 php artisan tinker
 ```
+
 then
-```
+
+```php
 DB::table('users')->insert(['name'=>'user_name','email'=>'user_email','password'=>Hash::make('password')])
 ```

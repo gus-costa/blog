@@ -10,16 +10,7 @@
 
   <title>Gus Costa</title>
 
-  <!-- Bootstrap core CSS -->
-  {!! Html::style('vendor/bootstrap/css/bootstrap.min.css') !!}
-  
-  <!-- Custom fonts for this template -->
-  {!! Html::style('vendor/fontawesome-free/css/all.min.css') !!}
-  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-  
-  <!-- Custom styles for this template -->
-  {!! Html::style('css/clean-blog.min.css') !!}
+  {!! Html::style('css/app.css') !!}
 
 </head>
 
@@ -78,14 +69,6 @@
                 </span>
               </a>
             </li>
-            <!--li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li-->
             <li class="list-inline-item">
               <a href="https://github.com/gus-costa" target="_blank">
                 <span class="fa-stack fa-lg">
@@ -101,12 +84,9 @@
     </div>
   </footer>
 
-  <!-- Bootstrap core JavaScript -->
-  {!! Html::script('vendor/jquery/jquery.min.js') !!}
-  {!! Html::script('vendor/bootstrap/js/bootstrap.bundle.min.js') !!}
-  
-  <!-- Custom scripts for this template -->
-  {!! Html::script('js/clean-blog.min.js') !!}
+  {!! Html::script('js/manifest.js') !!}
+  {!! Html::script('js/vendor.js') !!}
+  {!! Html::script('js/app.js') !!}
 
   @yield('scripts')
 
