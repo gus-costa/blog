@@ -38,7 +38,12 @@
     @endforeach
     <!-- Pager -->
     <div class="clearfix">
-        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        @if (!$posts->onFirstPage())
+        <a class="btn btn-primary float-left" href="{{ $posts->previousPageUrl() }}">&larr; Newer Posts</a>
+        @endif
+        @if ($posts->hasMorePages())
+        <a class="btn btn-primary float-right" href="{{ $posts->nextPageUrl() }}">Older Posts &rarr;</a>
+        @endif
     </div>
 </div>
 </div>

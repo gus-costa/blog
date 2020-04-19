@@ -6,18 +6,23 @@
     <nav class="navbar navbar-expand navbar-light bg-white">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="{{ route('category.index') }}">View All categories</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('category.create') }}">Create New Category</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('category.create') }}">Create Category</a></li>
         </ul>
     </nav>
 
-    <div class="panel-body">
-        <!-- Form errors -->
-        @include('common.errors')
-        
-        {!! Form::model($categories, ['route' => ['category.update', $categories->id], 'method' => 'put']) !!}
-        {!! Form::label('name', 'Name:') !!}
-        {!! Form::text('name', null, ['class'=>'form-control']) !!}
-        {!! Form::submit('Save', ['class' => 'secondary-cart-btn']) !!}
-        {!! Form::close() !!}
+    <!-- Form errors -->
+    @include('common.messages')
+
+    {!! Form::model($categories, ['route' => ['category.update', $categories->id], 'method' => 'put']) !!}
+
+    <div class="form-group">
+    {!! Form::label('name', 'Name:') !!}
+    {!! Form::text('name', null, ['class'=>'form-control']) !!}
     </div>
+
+    <div class="form-group">
+    {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
+    </div>
+
+    {!! Form::close() !!}
 @endsection

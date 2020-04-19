@@ -44,7 +44,7 @@ class PostController extends Controller
     }
 
     public function store(Request $request){
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'category_id' => 'required|integer',
             'title' => 'required|max:60|min:10',
             'author' => 'required|max:20|min:3',
@@ -52,13 +52,6 @@ class PostController extends Controller
             'short_desc' => 'required|max:200|min:30',
             'description' => 'required|max:4000000000|min:100'
         ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->route('post.create')
-                ->withInput()
-                ->withErrors($validator);
-        }
 
         $path = Storage::putFile(Config::get('app.images_dir'), $request->file('image'));
 
@@ -71,9 +64,9 @@ class PostController extends Controller
         $post->description = $request->description;
         $post->save();
 
-        Session::flash('post_create','New post was created');    
+        Session::flash('success','New post was created');    
 
-        return redirect()->route('post.create');
+        return redirect()->route('post.index');
     }
 
     public function edit($id){
@@ -120,7 +113,7 @@ class PostController extends Controller
         if (!empty($oldfile))
             $this->deleteImageFile($oldfile);
 
-        Session::flash('post_update','Post was updated');    
+        Session::flash('success','Post was updated');    
 
         return redirect()->route('post.index');
     }
@@ -129,7 +122,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         $this->deleteImageFile($post->image);
-        Session::flash('post_delete','Post was deleted');    
+        Session::flash('success','Post was deleted');    
         return redirect()->route('post.index');
     }
 }

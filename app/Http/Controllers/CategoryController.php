@@ -41,9 +41,9 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        Session::flash('category_create','New category is created');    
+        Session::flash('success','New category is created');    
 
-        return redirect()->route('category.create');
+        return redirect()->route('category.index');
     }
 
     public function edit($id){
@@ -51,6 +51,7 @@ class CategoryController extends Controller
         return view('admin.category.edit')
             ->with('categories', $categories);
     }
+
     public function update(Request $request, $id){
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:20|min:3'
@@ -68,7 +69,7 @@ class CategoryController extends Controller
         $category->name = $request->Input('name');
         $category->save();
 
-        Session::flash('category_update','Category was updated');    
+        Session::flash('success','Category was updated');    
 
         return redirect()->route('category.index');
     }
@@ -76,7 +77,7 @@ class CategoryController extends Controller
     public function destroy($id){
         $category = Category::find($id);
         $category->delete();
-        Session::flash('category_delete','Category was deleted');    
+        Session::flash('success','Category was deleted');    
         return redirect()->route('category.index');
     }
 }

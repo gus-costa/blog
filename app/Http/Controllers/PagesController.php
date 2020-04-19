@@ -11,7 +11,7 @@ use App\Post;
 class PagesController extends Controller {
     public function getIndex(){
         return view('pages.index')
-            ->withPosts(Post::orderBy('created_at','DESC')->get());
+            ->withPosts(Post::orderBy('created_at','DESC')->paginate(5));
     }
 
     public function getAbout(){

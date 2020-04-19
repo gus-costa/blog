@@ -10,23 +10,7 @@
         </ul>
     </nav>
 
-    @if (Session::has('category_update'))
-    <div class="alert alert-success">
-        <em>{!! session('category_update') !!}</em>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
-
-    @if (Session::has('category_delete'))
-    <div class="alert alert-success">
-        <em>{!! session('category_delete') !!}</em>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
+    @include('common.messages')
 
     @if (count($categories) > 0)
         <div class="card">
