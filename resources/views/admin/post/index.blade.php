@@ -20,14 +20,18 @@
             <div class="card-body">
                 <table class="table table-striped task-table">
                     <thead>
+                        <th>ID</th>
                         <th>Title</th>
+                        <th>Publish date</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                     </thead>
                     <tbody>
                         @foreach ($posts as $post)
                         <tr>
+                            <td>{{ $post->id }}</td>
                             <td>{{ $post->title }}</td>
+                            <td>{{ date('F j, Y h:i:sA', strtotime($post->created_at)) }}</td>
                             <td><a href="{{ route('post.edit', ['post' => $post->id]) }}">Edit</a></td>
                             <td>
                                 {!! Form::open(['route' => ['post.destroy', $post->id], 'method' => 'DELETE']) !!}

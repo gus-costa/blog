@@ -35,7 +35,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'DESC')->get();
 
         return view('admin.post.index')
             ->with('posts', $posts);
@@ -93,7 +93,7 @@ class PostController extends Controller
             'image' => 'mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
             'description' => 'required|max:4000000000|min:100',
-            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug,'.$id
+            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug,' . $id
         ]);
 
         $post = Post::find($id);
