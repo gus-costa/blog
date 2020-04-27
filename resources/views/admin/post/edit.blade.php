@@ -17,17 +17,22 @@
 
     <div class="form-group">
     {!! Form::label('category_id', 'Category:') !!}
-    {!! Form::select('category_id', $categories, null, ['class'=>'form-control']) !!}
+    {!! Form::select('category_id', $categories, null, ['class'=>'form-control', 'required' => '']) !!}
     </div>
 
     <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
-    {!! Form::text('title', null, ['class'=>'form-control']) !!}
+    {!! Form::text('title', null, ['class'=>'form-control', 'required' => '']) !!}
+    </div>
+
+    <div class="form-group">
+    {!! Form::label('slug', 'Slug:') !!}
+    {!! Form::text('slug', null, ['class'=>'form-control', 'required' => '', 'minlength' => '10', 'maxlength' => '255']) !!}
     </div>
 
     <div class="form-group">
     {!! Form::label('author', 'Author:') !!}
-    {!! Form::text('author', null, ['class'=>'form-control']) !!}
+    {!! Form::text('author', null, ['class'=>'form-control', 'required' => '']) !!}
     </div>
 
     <div class="form-group">
@@ -38,12 +43,12 @@
 
     <div class="form-group">
     {!! Form::label('short_desc', 'Short description:') !!}
-    {!! Form::text('short_desc', null, ['class'=>'form-control']) !!}
+    {!! Form::text('short_desc', null, ['class'=>'form-control', 'required' => '']) !!}
     </div>
 
     <div class="form-group">
     {!! Form::label('description', 'Description:') !!}
-    {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
+    {!! Form::textarea('description', null, ['class'=>'form-control', 'required' => '']) !!}
     </div>
 
     <div class="form-group">

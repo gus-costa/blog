@@ -8,21 +8,26 @@ use Session;
 
 use App\Post;
 
-class PagesController extends Controller {
-    public function getIndex(){
+class PagesController extends Controller
+{
+    public function getIndex()
+    {
         return view('pages.index')
-            ->withPosts(Post::orderBy('created_at','DESC')->paginate(5));
+            ->withPosts(Post::orderBy('created_at', 'DESC')->paginate(5));
     }
 
-    public function getAbout(){
+    public function getAbout()
+    {
         return view('pages.about');
     }
 
-    public function getContact(){
+    public function getContact()
+    {
         return view('pages.contact');
     }
 
-    public function postContact(Request $request){
+    public function postContact(Request $request)
+    {
         $this->validate($request, [
             'name' => 'required|min:3',
             'email' => 'email|required',
@@ -35,7 +40,7 @@ class PagesController extends Controller {
             'bodyMessage' => $request->message
         ];
 
-        Mail::send('emails.contact', $data, function($message) use ($data){
+        Mail::send('emails.contact', $data, function ($message) use ($data) {
             $message->replyTo($data['email']);
             $message->from(config('app.contact_to'));
             $message->to(config('app.contact_to'));
@@ -45,5 +50,23 @@ class PagesController extends Controller {
         Session::flash('contact_sent', 'Your E-mail was sent!');
 
         return redirect()->route('contact');
+    }
+
+    public function showPost($slug)
+    {
+        $post = Post::where('slug', '=', $slug)->first();
+
+        if (empty($post)) {
+            abort(404);
+        }
+
+        return view('pages.post')
+            ->with('post', $post);
+    }
+
+    public function redirectToSlug($id)
+    {
+        $post = Post::findOrFail($id);
+        return redirect()->route('post.view', ['slug' => $post->slug], 301);
     }
 }

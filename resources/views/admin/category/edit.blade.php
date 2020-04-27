@@ -13,7 +13,7 @@
     <!-- Form errors -->
     @include('common.messages')
 
-    {!! Form::model($categories, ['route' => ['category.update', $categories->id], 'method' => 'put']) !!}
+    {!! Form::model($category, ['route' => ['category.update', $category->id], 'method' => 'put']) !!}
 
     <div class="form-group">
     {!! Form::label('name', 'Name:') !!}

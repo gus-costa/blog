@@ -14,18 +14,21 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function index()
+    {
         $categories = Category::all();
 
         return view('admin.category.index')
             ->with('categories', $categories);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.category.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:20|min:3'
         ]);
@@ -41,18 +44,20 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        Session::flash('success','New category is created');    
+        Session::flash('success', 'New category was created');
 
         return redirect()->route('category.index');
     }
 
-    public function edit($id){
-        $categories = Category::findOrFail($id);
+    public function edit($id)
+    {
+        $category = Category::findOrFail($id);
         return view('admin.category.edit')
-            ->with('categories', $categories);
+            ->with('category', $category);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:20|min:3'
         ]);
@@ -69,15 +74,16 @@ class CategoryController extends Controller
         $category->name = $request->Input('name');
         $category->save();
 
-        Session::flash('success','Category was updated');    
+        Session::flash('success', 'Category was updated');
 
         return redirect()->route('category.index');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $category = Category::find($id);
         $category->delete();
-        Session::flash('success','Category was deleted');    
+        Session::flash('success', 'Category was deleted');
         return redirect()->route('category.index');
     }
 }

@@ -20,15 +20,16 @@ Route::get('about', 'PagesController@getAbout')->name('about');
 Route::get('contact', 'PagesController@getContact')->name('contact');
 Route::post('contact', 'PagesController@postContact')->name('submitContact');
 
-Route::get('/post/{id}', 'StoreController@getView')->name('post.view');
+Route::get('/post/{id}', 'PagesController@redirectToSlug')->where('id', '[\d]+');
+Route::get('/post/{slug}', 'PagesController@showPost')->name('post.view')->where('slug', '[\w\d\-\_]+');
 
-Route::group(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@indexPage')->name('admin.index');
     Route::get('/info', 'AdminController@infoPage')->name('admin.info');
 
-    Route::resource('category','CategoryController');
-    
-    Route::resource('post','PostController');
+    Route::resource('category', 'CategoryController');
+
+    Route::resource('post', 'PostController');
 
     Auth::routes(['register' => false, 'reset' => false]);
 });

@@ -17,7 +17,8 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    private function getCategoriesForSelect(){
+    private function getCategoriesForSelect()
+    {
         $categories = [];
 
         foreach (Category::all() as $category) {
@@ -27,30 +28,35 @@ class PostController extends Controller
         return $categories;
     }
 
-    private function deleteImageFile($filename){
+    private function deleteImageFile($filename)
+    {
         Storage::delete($filename);
     }
 
-    public function index(){
+    public function index()
+    {
         $posts = Post::all();
 
         return view('admin.post.index')
             ->with('posts', $posts);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.post.create')
             ->with('categories', $this->getCategoriesForSelect());
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'category_id' => 'required|integer',
-            'title' => 'required|max:60|min:10',
+            'title' => 'required|max:100|min:10',
             'author' => 'required|max:20|min:3',
             'image' => 'required|mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
-            'description' => 'required|max:4000000000|min:100'
+            'description' => 'required|max:4000000000|min:100',
+            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug'
         ]);
 
         $path = Storage::putFile(Config::get('app.images_dir'), $request->file('image'));
@@ -62,28 +68,32 @@ class PostController extends Controller
         $post->image = $path;
         $post->short_desc = $request->short_desc;
         $post->description = $request->description;
+        $post->slug = $request->slug;
         $post->save();
 
-        Session::flash('success','New post was created');    
+        Session::flash('success', 'New post was created');
 
         return redirect()->route('post.index');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $post = Post::findOrFail($id);
         return view('admin.post.edit')
             ->with('post', $post)
             ->with('categories', $this->getCategoriesForSelect());
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|integer',
-            'title' => 'required|max:60|min:10',
+            'title' => 'required|max:100|min:10',
             'author' => 'required|max:20|min:3',
             'image' => 'mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
-            'description' => 'required|max:4000000000|min:100'
+            'description' => 'required|max:4000000000|min:100',
+            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug,'.$id
         ]);
 
         $post = Post::find($id);
@@ -108,21 +118,23 @@ class PostController extends Controller
         $post->author = $request->author;
         $post->short_desc = $request->short_desc;
         $post->description = $request->description;
+        $post->slug = $request->slug;
         $post->save();
 
         if (!empty($oldfile))
             $this->deleteImageFile($oldfile);
 
-        Session::flash('success','Post was updated');    
+        Session::flash('success', 'Post was updated');
 
         return redirect()->route('post.index');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $post = Post::find($id);
         $post->delete();
         $this->deleteImageFile($post->image);
-        Session::flash('success','Post was deleted');    
+        Session::flash('success', 'Post was deleted');
         return redirect()->route('post.index');
     }
 }
