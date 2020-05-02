@@ -10,7 +10,7 @@
                     <h1>{{ $post->title }}</h1>
                     <h2 class="subheading">{{ $post->short_desc }}</h2>
                     <span class="meta">Posted by
-                    <a href="#">{{ $post->author }}</a>
+                    <a href="#">{{ $post->author->name }}</a>
                     on {{ date('F j, Y', strtotime($post->created_at)) }}</span>
                 </div>
             </div>

@@ -9,6 +9,7 @@ use Session;
 use Config;
 use App\Category;
 use App\Post;
+use Auth;
 
 class PostController extends Controller
 {
@@ -52,7 +53,6 @@ class PostController extends Controller
         $request->validate([
             'category_id' => 'required|integer',
             'title' => 'required|max:100|min:10',
-            'author' => 'required|max:20|min:3',
             'image' => 'required|mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
             'description' => 'required|max:4000000000|min:100',
@@ -64,7 +64,7 @@ class PostController extends Controller
         $post = new Post;
         $post->category_id = $request->category_id;
         $post->title = $request->title;
-        $post->author = $request->author;
+        $post->author_id = Auth::user()->id;
         $post->image = $path;
         $post->short_desc = $request->short_desc;
         $post->description = $request->description;
@@ -89,7 +89,6 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|integer',
             'title' => 'required|max:100|min:10',
-            'author' => 'required|max:20|min:3',
             'image' => 'mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
             'description' => 'required|max:4000000000|min:100',
@@ -115,7 +114,6 @@ class PostController extends Controller
 
         $post->category_id = $request->category_id;
         $post->title = $request->title;
-        $post->author = $request->author;
         $post->short_desc = $request->short_desc;
         $post->description = $request->description;
         $post->slug = $request->slug;

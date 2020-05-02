@@ -31,11 +31,6 @@
     </div>
 
     <div class="form-group">
-    {!! Form::label('author', 'Author:') !!}
-    {!! Form::text('author', null, ['class'=>'form-control', 'required' => '']) !!}
-    </div>
-
-    <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
     {!! Form::file('image', ['class'=>'form-control-file']) !!}
     </div>

@@ -9,7 +9,7 @@ class Post extends Model
     protected $fillable = [
         'category_id',
         'title',
-        'author',
+        'author_id',
         'image',
         'short_desc',
         'description'
@@ -17,11 +17,18 @@ class Post extends Model
 
     protected $appends = ['html_content'];
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo('App\Category');
     }
 
-    public function getHtmlContentAttribute() {
+    public function author()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function getHtmlContentAttribute()
+    {
         return \Illuminate\Mail\Markdown::parse($this->description);
     }
 }
