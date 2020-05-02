@@ -18,7 +18,7 @@ class Post extends Model
     protected $appends = ['html_content'];
 
     public function category(){
-        return $this->belongsTo('category');
+        return $this->belongsTo('App\Category');
     }
 
     public function getHtmlContentAttribute() {
