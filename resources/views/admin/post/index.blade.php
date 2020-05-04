@@ -6,7 +6,7 @@
     <nav class="navbar navbar-expand navbar-light bg-white">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="{{ route('post.index') }}">View All Posts</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('post.create') }}">Create New Post</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('post.create') }}">Create Post</a></li>
         </ul>
     </nav>
 

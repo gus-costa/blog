@@ -9,9 +9,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Blank</title>
+  <title>My Blog @yield('title')</title>
 
   {{ Html::style('css/sb-admin-2.css') }}
+
+  @yield('stylesheets')
 
 </head>
 
@@ -34,14 +36,22 @@
       <!-- Nav Item - Categories -->
       <li class="nav-item">
         <a class="nav-link" href="{{ route('category.index') }}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-list"></i>
           <span>Categories</span></a>
       </li>
-      <!-- Nav Item - Categories -->
+
+      <!-- Nav Item - Posts -->
       <li class="nav-item">
         <a class="nav-link" href="{{ route('post.index') }}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-scroll"></i>
           <span>Posts</span></a>
+      </li>
+
+      <!-- Nav Item - Posts -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('tag.index') }}">
+          <i class="fas fa-fw fa-tags"></i>
+          <span>Tags</span></a>
       </li>
 
       <!-- Divider -->
@@ -49,7 +59,7 @@
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.info') }}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-info"></i>
           <span>Info</span></a>
       </li>
 
@@ -313,6 +323,8 @@
   {{ Html::script('js/manifest.js') }}
   {{ Html::script('js/vendor.js') }}
   {{ Html::script('js/admin.js') }}
+
+@yield('scripts')
 
 </body>
 

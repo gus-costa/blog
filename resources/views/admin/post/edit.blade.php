@@ -1,5 +1,15 @@
 @extends('layouts.admin')
 
+@section('title', '| Posts')
+
+@section('stylesheets')
+    {{ Html::style('css/tag.css') }}
+@endsection
+
+@section('scripts')
+    {{ Html::script('js/tag.js') }}
+@endsection
+
 @section('content')
     <h1 class="h3 mb-4 text-gray-800">Edit Post</h1>
 
@@ -18,6 +28,11 @@
     <div class="form-group">
     {!! Form::label('category_id', 'Category:') !!}
     {!! Form::select('category_id', $categories, null, ['class'=>'form-control', 'required' => '']) !!}
+    </div>
+
+    <div class="form-group">
+    {!! Form::label('tags[]', 'Tags:') !!}
+    {!! Form::select('tags[]', $tags, null, ['class'=>'form-control select2-multi', 'multiple' => '']) !!}
     </div>
 
     <div class="form-group">

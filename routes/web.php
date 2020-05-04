@@ -31,5 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('post', 'PostController');
 
+    Route::resource('tag', 'TagController');
+
     Auth::routes(['register' => false, 'reset' => false]);
 });

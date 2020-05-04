@@ -9,6 +9,7 @@ use Session;
 use Config;
 use App\Category;
 use App\Post;
+use App\Tag;
 use Auth;
 
 class PostController extends Controller
@@ -20,13 +21,12 @@ class PostController extends Controller
 
     private function getCategoriesForSelect()
     {
-        $categories = [];
+        return Category::all()->pluck('name', 'id');
+    }
 
-        foreach (Category::all() as $category) {
-            $categories[$category->id] = $category->name;
-        }
-
-        return $categories;
+    private function getTagsForSelect()
+    {
+        return Tag::all()->pluck('name', 'id');
     }
 
     private function deleteImageFile($filename)
@@ -45,7 +45,8 @@ class PostController extends Controller
     public function create()
     {
         return view('admin.post.create')
-            ->with('categories', $this->getCategoriesForSelect());
+            ->with('categories', $this->getCategoriesForSelect())
+            ->with('tags', $this->getTagsForSelect());
     }
 
     public function store(Request $request)
@@ -56,7 +57,9 @@ class PostController extends Controller
             'image' => 'required|mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
             'description' => 'required|max:4000000000|min:100',
-            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug'
+            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug',
+            'tags' => 'array',
+            'tags.*' => 'exists:tags,id'
         ]);
 
         $path = Storage::putFile(Config::get('app.images_dir'), $request->file('image'));
@@ -71,6 +74,8 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->save();
 
+        $post->tags()->sync($request->tags, false);
+
         Session::flash('success', 'New post was created');
 
         return redirect()->route('post.index');
@@ -81,28 +86,24 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         return view('admin.post.edit')
             ->with('post', $post)
-            ->with('categories', $this->getCategoriesForSelect());
+            ->with('categories', $this->getCategoriesForSelect())
+            ->with('tags', $this->getTagsForSelect());
     }
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'category_id' => 'required|integer',
             'title' => 'required|max:100|min:10',
             'image' => 'mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
             'description' => 'required|max:4000000000|min:100',
-            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug,' . $id
+            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug,' . $id,
+            'tags' => 'array',
+            'tags.*' => 'exists:tags,id'
         ]);
 
-        $post = Post::find($id);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->route('post.edit', ['post' => $post->id])
-                ->withInput()
-                ->withErrors($validator);
-        }
+        $post = Post::findOrFail($id);
 
         $oldfile = null;
 
@@ -119,6 +120,8 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->save();
 
+        $post->tags()->sync($request->tags ?? []);
+
         if (!empty($oldfile))
             $this->deleteImageFile($oldfile);
 
@@ -129,7 +132,7 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->delete();
         $this->deleteImageFile($post->image);
         Session::flash('success', 'Post was deleted');
