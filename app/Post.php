@@ -32,6 +32,16 @@ class Post extends Model
         return $this->belongsToMany('App\Tag');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    public function getApprovedCommentsAttribute()
+    {
+        return $this->comments()->where('approved', true)->orderBy('created_at')->get();
+    }
+
     public function getHtmlContentAttribute()
     {
         return \Illuminate\Mail\Markdown::parse($this->description);

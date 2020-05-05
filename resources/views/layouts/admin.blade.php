@@ -47,11 +47,18 @@
           <span>Posts</span></a>
       </li>
 
-      <!-- Nav Item - Posts -->
+      <!-- Nav Item - Tags -->
       <li class="nav-item">
         <a class="nav-link" href="{{ route('tag.index') }}">
           <i class="fas fa-fw fa-tags"></i>
           <span>Tags</span></a>
+      </li>
+
+      <!-- Nav Item - Comments -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('comments.index') }}">
+          <i class="fas fa-fw fa-comments"></i>
+          <span>Comments</span></a>
       </li>
 
       <!-- Divider -->

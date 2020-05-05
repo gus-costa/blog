@@ -24,7 +24,7 @@
         @if (Session::has('contact_sent'))
         <div class="alert alert-success" role="alert">{{ Session::get('contact_sent') }}</div>
         @endif
-        @include('common.errors')
+        @include('common.messages')
         <form method="POST" action="{{ route('submitContact') }}" id="contactForm" novalidate>
             @csrf
             <div class="control-group">

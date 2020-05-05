@@ -12,6 +12,8 @@
 
   {!! Html::style('css/app.css') !!}
 
+  @yield('stylesheets')
+
 </head>
 
 <body>
