@@ -16,16 +16,6 @@ class PagesController extends Controller
             ->withPosts(Post::orderBy('created_at', 'DESC')->paginate(5));
     }
 
-    public function getAbout()
-    {
-        return view('pages.about');
-    }
-
-    public function getContact()
-    {
-        return view('pages.contact');
-    }
-
     public function postContact(Request $request)
     {
         $this->validate($request, [
@@ -52,21 +42,14 @@ class PagesController extends Controller
         return redirect()->route('contact');
     }
 
-    public function showPost($slug)
+    public function showPost(Post $post)
     {
-        $post = Post::where('slug', '=', $slug)->first();
-
-        if (empty($post)) {
-            abort(404);
-        }
-
         return view('pages.post')
             ->with('post', $post);
     }
 
-    public function redirectToSlug($id)
+    public function redirectToSlug(Post $post)
     {
-        $post = Post::findOrFail($id);
-        return redirect()->route('post.view', ['slug' => $post->slug], 301);
+        return redirect()->route('post.view', ['post' => $post], 301);
     }
 }

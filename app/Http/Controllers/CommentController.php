@@ -31,15 +31,13 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $post_id)
+    public function store(Request $request, Post $post)
     {
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|max:255',
             'comment' => 'required|min:5|max:2000'
         ]);
-
-        $post = Post::findOrFail($post_id);
 
         $comment = new Comment();
         $comment->name = $request->name;
@@ -50,7 +48,7 @@ class CommentController extends Controller
 
         Session::flash('success', 'Comment was submited for approval');
 
-        return redirect()->route('post.view', ['slug' => $post->slug]);
+        return redirect()->route('post.view', ['post' => $post]);
     }
 
     /**

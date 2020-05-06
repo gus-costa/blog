@@ -15,16 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PagesController@getIndex')->name('home');
 
-Route::get('about', 'PagesController@getAbout')->name('about');
+Route::view('/about', 'pages.about')->name('about');
 
-Route::get('contact', 'PagesController@getContact')->name('contact');
-Route::post('contact', 'PagesController@postContact')->name('submitContact');
+Route::view('/contact', 'pages.contact')->name('contact');
+Route::post('/contact', 'PagesController@postContact')->name('submitContact');
 
-Route::group(['prefix' => 'post'], function() {
-    Route::get('/{id}', 'PagesController@redirectToSlug')->where('id', '[\d]+');
-    Route::get('/{slug}', 'PagesController@showPost')->name('post.view')->where('slug', '[\w\d\-\_]+');
+Route::prefix('post')->group(function() {
+    Route::get('/{post}', 'PagesController@redirectToSlug');
+    Route::get('/{post:slug}', 'PagesController@showPost')->name('post.view');
     
-    Route::post('/{post_id}/comments', 'CommentController@store')->name('comments.store');
+    Route::post('/{post}/comments', 'CommentController@store')->name('comments.store');
 });
 
 Route::group(['prefix' => 'admin'], function () {

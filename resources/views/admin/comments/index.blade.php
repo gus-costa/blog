@@ -31,7 +31,7 @@
                     <tbody>
                         @foreach ($comments as $comment)
                         <tr>
-                            <td><a href="{{ route('post.view', ['slug' => $comment->post->slug]) }}" target="_blank">{{ $comment->post->title }}</a></td>
+                            <td><a href="{{ route('post.view', ['post' => $comment->post]) }}" target="_blank">{{ $comment->post->title }}</a></td>
                             <td>{{ $comment->name }}</td>
                             <td>{{ $comment->email }}</td>
                             <td>{{ $comment->comment }}</td>

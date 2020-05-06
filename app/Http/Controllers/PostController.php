@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Validator;
 use Session;
 use Config;
 use App\Category;
@@ -81,16 +80,15 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
         return view('admin.post.edit')
             ->with('post', $post)
             ->with('categories', $this->getCategoriesForSelect())
             ->with('tags', $this->getTagsForSelect());
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         $request->validate([
             'category_id' => 'required|integer',
@@ -98,12 +96,10 @@ class PostController extends Controller
             'image' => 'mimes:jpg,jpeg,png,gif',
             'short_desc' => 'required|max:200|min:30',
             'description' => 'required|max:4000000000|min:100',
-            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug,' . $id,
+            'slug' => 'required|alpha_dash|max:255|min:10|unique:posts,slug,' . $post->id,
             'tags' => 'array',
             'tags.*' => 'exists:tags,id'
         ]);
-
-        $post = Post::findOrFail($id);
 
         $oldfile = null;
 
@@ -130,9 +126,8 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
         $post->delete();
         $this->deleteImageFile($post->image);
         Session::flash('success', 'Post was deleted');

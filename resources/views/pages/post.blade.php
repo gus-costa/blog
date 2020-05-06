@@ -60,7 +60,7 @@
     </div>
     <div class="row">
         <div id="comment-form" class="col-lg-8 col-md-10 mx-auto">
-            {{ Form::open(['route' => ['comments.store', $post->id], 'method' => 'POST']) }}
+            {{ Form::open(['route' => ['comments.store', $post], 'method' => 'POST']) }}
             <div class="row">
                 <div class="control-group col-md-6">
                     <div class="form-group floating-label-form-group controls">
