@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Gus Costa</title>
+  <title>@yield('title') Gus Costa</title>
 
   {!! Html::style('css/app.css') !!}
 

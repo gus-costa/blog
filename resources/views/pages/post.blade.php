@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', $post->title . ' |')
+
 @section('stylesheets')
 <style type="text/css">
     .author-info>small {
