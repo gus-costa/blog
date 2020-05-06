@@ -3,11 +3,16 @@
 @section('title', '| Posts')
 
 @section('stylesheets')
-    {{ Html::style('css/tag.css') }}
+    {{ Html::style('css/edit-post.css') }}
+    <style type="text/css">
+        .post-image{
+            max-width: 400px;
+        }
+    </style>
 @endsection
 
 @section('scripts')
-    {{ Html::script('js/tag.js') }}
+    {{ Html::script('js/edit-post.js') }}
 @endsection
 
 @section('content')
@@ -49,7 +54,7 @@
     {!! Form::label('image', 'Image:') !!}
     {!! Form::file('image', ['class'=>'form-control-file']) !!}
     </div>
-    <img src="{{ Storage::url($post->image) }}">
+    <img src="{{ Storage::url($post->image) }}" class="post-image">
 
     <div class="form-group">
     {!! Form::label('short_desc', 'Short description:') !!}
@@ -57,8 +62,8 @@
     </div>
 
     <div class="form-group">
-    {!! Form::label('description', 'Description:') !!}
-    {!! Form::textarea('description', null, ['class'=>'form-control', 'required' => '']) !!}
+    {!! Form::label('description', 'Content:') !!}
+    {!! Form::textarea('description', null, ['class'=>'form-control', 'required' => '', 'id' => 'post-editor']) !!}
     </div>
 
     <div class="form-group">

@@ -10,6 +10,7 @@ use App\Category;
 use App\Post;
 use App\Tag;
 use Auth;
+use Purifier;
 
 class PostController extends Controller
 {
@@ -69,7 +70,7 @@ class PostController extends Controller
         $post->author_id = Auth::user()->id;
         $post->image = $path;
         $post->short_desc = $request->short_desc;
-        $post->description = $request->description;
+        $post->description = Purifier::clean($request->description);
         $post->slug = $request->slug;
         $post->save();
 
@@ -112,7 +113,7 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
         $post->title = $request->title;
         $post->short_desc = $request->short_desc;
-        $post->description = $request->description;
+        $post->description = Purifier::clean($request->description);
         $post->slug = $request->slug;
         $post->save();
 

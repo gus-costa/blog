@@ -3,11 +3,11 @@
 @section('title', '| Posts')
 
 @section('stylesheets')
-    {{ Html::style('css/tag.css') }}
+    {{ Html::style('css/edit-post.css') }}
 @endsection
 
 @section('scripts')
-    {{ Html::script('js/tag.js') }}
+    {{ Html::script('js/edit-post.js') }}
 @endsection
 
 @section('content')
@@ -56,8 +56,8 @@
     </div>
 
     <div class="form-group">
-    {!! Form::label('description', 'Description:') !!}
-    {!! Form::textarea('description', null, ['class'=>'form-control', 'required' => '']) !!}
+    {!! Form::label('description', 'Content:') !!}
+    {!! Form::textarea('description', null, ['class'=>'form-control', 'required' => '', 'id' => 'post-editor']) !!}
     </div>
 
     <div class="form-group">
